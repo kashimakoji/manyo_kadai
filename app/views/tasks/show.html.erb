@@ -1,2 +1,13 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<h1>タスクの詳細</h1>
+<%= button_to '一覧画面', tasks_path , method: :get %>
+<hr>
+<table>
+  <tr>
+    <th>名称：</th>
+    <td><%= @task.task_name%></td>
+  </tr>
+  <tr>
+    <th>詳細：</th>
+    <td><%= @task.content %></td>
+  </tr>
+</table>
