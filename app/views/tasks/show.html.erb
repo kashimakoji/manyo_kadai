@@ -11,3 +11,6 @@
     <td><%= @task.content %></td>
   </tr>
 </table>
+<br>
+<%= button_to '編集', edit_task_path, method: :get %>
+<%= button_to '削除', tasks_path, method: :get, data: {confirm: "「#{@task.task_name}」を削除していいですか？"} %>

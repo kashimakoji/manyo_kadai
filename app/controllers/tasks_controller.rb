@@ -24,6 +24,16 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def update
+    @task.update(task_params)
+    redirect_to tasks_path, notice: "「#{@task.task_name}」を更新しました"
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, notice: "「#{@task.task_name}」を削除しました"
+  end
+
   private
   def task_params
     params.require(:task).permit(:task_name, :content)

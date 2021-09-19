@@ -19,5 +19,9 @@
     <%= form.text_area :content %>
   </div>
   <br>
-  <%= form.submit "作成する" %>
+  <% if action_name == "edit" %>
+    <%= form.submit "更新する" %>
+  <% else %>
+    <%= form.submit "登録する" %>
+  <% end %>
 <% end %>
