@@ -1,0 +1,16 @@
+<h1>タスクの詳細</h1>
+<%= button_to '一覧画面', tasks_path , method: :get %>
+<hr>
+<table>
+  <tr>
+    <th>名称：</th>
+    <td><%= @task.task_name%></td>
+  </tr>
+  <tr>
+    <th>詳細：</th>
+    <td><%= @task.content %></td>
+  </tr>
+</table>
+<br>
+<%= button_to '編集', edit_task_path, method: :get %>
+<%= button_to '削除', tasks_path, method: :get, data: {confirm: "「#{@task.task_name}」を削除していいですか？"} %>
