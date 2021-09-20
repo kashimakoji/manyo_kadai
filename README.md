@@ -1,5 +1,3 @@
-# README
-
 |Label            |Labeling    |Task            |User                  |
 |  ----           |  ----      |  ----          |  ----                |
 |label_name:string|task_id(FK) |user_id(FK)     |admin:string          |
