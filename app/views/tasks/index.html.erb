@@ -3,8 +3,9 @@
 <hr>
 <table>
   <tr>
-    <th>名称</th>
-    <th>詳細</th>
+    <th>Task名称</th>
+    <th>詳しい内容</th>
+    <th>終了期限</th>
     <th>作成日時</th>
     <th></th>
   </tr>
@@ -14,7 +15,8 @@
     <tr>
       <td><%= link_to task.task_name, task_path(task.id) %></td>
       <td><%= task.content %></td>
-      <td><%= task.created_at %></td>
+      <td><%= task.end_time.strftime("%Y-%m-%d") %></td>
+      <td><%= task.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
       <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
       <td><%= button_to '削除', task_path(task.id), method: :delete, data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
     </tr>
