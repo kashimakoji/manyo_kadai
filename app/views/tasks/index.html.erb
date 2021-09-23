@@ -5,14 +5,20 @@
   <tr>
     <th>名称</th>
     <th>詳細</th>
+    <th>作成日時</th>
     <th></th>
   </tr>
-<% @tasks.each do |task| %>
-  <tr>
-    <td><%= link_to task.task_name, task_path(task.id) %></td>
-    <td><%= task.content %></td>
-    <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
-    <td><%= button_to '削除', task_path(task.id), method: :delete, data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
-  </tr>
-<% end %>
+
+  <% @tasks.each do |task| %>
+  <tbody class="task_body">
+    <tr>
+      <td><%= link_to task.task_name, task_path(task.id) %></td>
+      <td><%= task.content %></td>
+      <td><%= task.created_at %></td>
+      <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
+      <td><%= button_to '削除', task_path(task.id), method: :delete, data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
+    </tr>
+  </tbody>
+  <% end %>
+
 </table>
