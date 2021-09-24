@@ -5,7 +5,7 @@
   <tr>
     <th>Task名称</th>
     <th>詳しい内容</th>
-    <th>終了期限</th>
+    <th><%= link_to '終了期限',tasks_path(sort_expired: "true") %></th>
     <th>作成日時</th>
     <th></th>
   </tr>
