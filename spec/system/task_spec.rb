@@ -43,15 +43,13 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
     context 'タスクの終了期限が降順に並んでいる場合' do
-      it '終了期限が後ろのタスクが一番上に表示される' do
+      it '終了期限が後のタスクが一番上に表示される' do
         # FactoryBot.create(:task)
         # FactoryBot.create(:task_2)
         # FactoryBot.create(:task_3)
         # visit tasks_path
-        # binding.pry
         click_on "終了期限"
         task_list = all('.task_body')
-        # binding.pry
         expect(task_list[0]).to have_content '2021/10/03'
         expect(task_list[1]).to have_content '2021/10/02'
         expect(task_list[2]).to have_content '2021/10/01'
