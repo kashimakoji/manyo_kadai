@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_09_25_081457) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "end_time"
-    t.string "status"
+    t.integer "status", default: 0, null: false
   end
 
 end

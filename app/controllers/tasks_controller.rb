@@ -2,11 +2,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_expired] == "true"
-      @tasks = Task.all.order(end_time: :desc)
-    else
-      @tasks = Task.all.order(created_at: :desc)
-    end
+    @tasks = Task.all.order(created_at: :desc)
+    @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
+    @tasks = @tasks.where('task_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    @tasks = @tasks.where(status: params[:status]) if params[:status].present?
+
+    # if params[:status] == "未着手" || "着手中" || "完了"
+    # @tasks = @tasks.where('status = ?', params[:status]).pluck(:id)
+    # binding.irb
   end
 
   def show
@@ -40,7 +43,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:task_name, :content, :end_time)
+    params.require(:task).permit(:task_name, :content, :end_time, :status)
   end
 
   def set_task
