@@ -206,7 +206,7 @@ ja:
       mid: "%Y/%m/%d"
       short: "%m/%d %H:%M"
     pm: 午後
-   
+
   faker:
     address:
       postcode: ["###-####"]

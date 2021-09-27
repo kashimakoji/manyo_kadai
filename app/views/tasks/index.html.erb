@@ -2,6 +2,7 @@
 <%= button_to "タスク新規作成", new_task_path, method: :get %>
 <%= form_with url: tasks_path, method: :get, local: true do |form| %>
   <%= form.text_field :search %>
+  <%# <% binding.irb %> %>
   <%= form.select :status, Task.statuses.keys, include_blank: "選択して下さい" %>
   <%= form.submit '検索' %>
 <% end %>
@@ -21,7 +22,11 @@
     <tr>
       <td><%= link_to task.task_name, task_path(task.id) %></td>
       <td><%= task.content %></td>
-      <td><%= l task.end_time, format: :mid %></td>
+      <%# <% if task.end_time.blank? %>
+        <!-- <td><%#= task.end_time.strftime("未設定").to_s %></td> -->
+      <%# <% else %> %>
+        <td><%= l task.end_time, format: :mid %></td>
+      <%# <% end %> %>
       <!-- <td><%= l task.created_at %></td> -->
       <td><%= task.status%></td>
       <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
