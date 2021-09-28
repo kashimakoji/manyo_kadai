@@ -8,6 +8,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in 'Task名称', with: 'テストタスクネーム'
         fill_in '詳しい内容', with: 'テストコンテント'
         fill_in '終了期限', with: Time.current
+        select '完了', from: 'ステータス'
         #select '2022', from: 'task_end_time_1i'
         click_on "登録する"
         expect(page).to have_content '登録しました'

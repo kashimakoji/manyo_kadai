@@ -1,0 +1,6 @@
+ja:
+  status:
+    task:
+      waiting: '未着手'
+      working: '着手'
+      completed: '完了'

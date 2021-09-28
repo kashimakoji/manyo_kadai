@@ -14,4 +14,14 @@ FactoryBot.define do
     content { 'テストコンテンツ_3' }
     end_time { '2021/10/03' }
   end
+  factory :task_4, class: Task do
+    task_name { 'テストタスクネーム_4' }
+    content { 'テストコンテンツ_4' }
+    end_time { '2021/10/04' }
+  end
+  factory :task_5, class: Task do
+    task_name { 'テストタスクネーム_5' }
+    content { 'テストコンテンツ_5' }
+    end_time { '2021/10/05' }
+  end
 end
