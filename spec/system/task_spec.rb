@@ -9,7 +9,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in '詳しい内容', with: 'テストコンテント'
         fill_in '終了期限', with: Time.current
         select '完了', from: 'ステータス'
-        #select '2022', from: 'task_end_time_1i'
         click_on "登録する"
         expect(page).to have_content '登録しました'
       end
@@ -67,4 +66,28 @@ RSpec.describe 'タスク管理機能', type: :system do
        end
      end
   end
+
+  describe '検索機能' do
+    before do
+      FactoryBot.create(:task)
+      FactoryBot.create(:task_2)
+      FactoryBot.create(:task_3)
+      visit tasks_path
+    end
+    context 'タイトルで曖昧検索をした場合' do
+      it "検索キーワードを含むタスクで絞り込まれる" do
+        fill_in 'search', with: '2'
+        expect(page).to have_content '2'
+      end
+    end
+    context 'ステータス検索をした場合' do
+      it "ステータスに完全一致するタスクが絞り込まれる" do
+        select '完了', from: 'status'
+        click_on '検索'
+        expect(page).to have_content '完了'
+      end
+    end
+
+  end
+
 end
