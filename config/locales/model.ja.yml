@@ -12,6 +12,9 @@ ja:
         updated_at: 更新日時
         end_time: 終了期限
         status: ステータス
+        waiting: 未着手
+        working: 着手
+        completed: 完了
       user:
         title: タイトル
         name: 名前

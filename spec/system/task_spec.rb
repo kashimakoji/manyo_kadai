@@ -77,6 +77,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タイトルで曖昧検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
         fill_in 'search', with: '2'
+        click_on '検索'
         expect(page).to have_content '2'
       end
     end
@@ -85,6 +86,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         select '完了', from: 'status'
         click_on '検索'
         expect(page).to have_content '完了'
+      end
+    end
+    context 'タイトル曖昧検索とステータス検索をした場合' do
+      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる" do
+        fill_in 'search', with: '2'
+        select '完了', from: 'status'
+        click_on '検索'
+        expect(page).to have_content '完了'
+        expect(page).to have_content '2'
       end
     end
 

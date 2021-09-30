@@ -1,6 +1,12 @@
 ---
 ja:
   activerecord:
+    attributes:
+      task:
+        status:
+          waiting: 未着手
+          working: 着手
+          completed: 完了
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -206,7 +212,21 @@ ja:
       mid: "%Y/%m/%d"
       short: "%m/%d %H:%M"
     pm: 午後
-   
+
+  views:
+    tasks:
+      index:
+        waiting: '未着手'
+        working: '着手'
+        completed: '完了'
+  activerecord:
+    attributes:
+      task:
+        waiting: '未着手'
+        working: '着手'
+        completed: '完了'
+
+
   faker:
     address:
       postcode: ["###-####"]

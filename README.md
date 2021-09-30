@@ -5,7 +5,8 @@
 |                 |            |content:text    |email:string          |
 |                 |            |end_time:datetime        |passwork_digest:string|
 |			|			|	created_at:datetime	|			|
-|  |  |status:string  |  |
+|  |  |status:integer  |  |
+|  |  |priority:integer    |  |
 
 # heroku 設定
 #### 設定

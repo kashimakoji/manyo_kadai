@@ -24,7 +24,6 @@
   </div>
   <div class="status">
     <%= form.label :status %>
-    <%#= form.select :status, { '未着手': '未着手', '着手中': '着手中', '完了': 3} %>
     <%= form.select :status, Task.localed_statuses, {}, class: 'form-control' %>
   </div>
   <br>
