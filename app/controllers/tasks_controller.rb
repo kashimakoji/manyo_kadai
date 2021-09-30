@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all.desc_sort
     @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
+    @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority] == "true"
     @tasks = @tasks.word_search(params[:search]) if params[:search].present?
     #@tasks = @tasks.where('task_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
     @tasks = @tasks.status_search(params[:status]) if params[:status].present?
@@ -40,7 +41,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:task_name, :content, :end_time, :status)
+    params.require(:task).permit(:task_name, :content, :end_time, :status, :priority)
   end
 
   def set_task
