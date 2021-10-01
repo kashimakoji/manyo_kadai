@@ -9,6 +9,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in '詳しい内容', with: 'テストコンテント'
         fill_in '終了期限', with: Time.current
         select '完了', from: 'ステータス'
+        select '中', from: '優先順位'
         click_on "登録する"
         expect(page).to have_content '登録しました'
       end
@@ -59,9 +60,10 @@ RSpec.describe 'タスク管理機能', type: :system do
       it '優先順位が高いタスクが一番上に表示される' do
         click_on "優先順位"
         task_list = all('.task_body')
-        expect(task_list[0]).to have_content 'high'
-        expect(task_list[1]).to have_content 'middle'
-        expect(task_list[2]).to have_content 'low'
+        #binding.irb
+        expect(task_list[0]).to have_content '高'
+        expect(task_list[1]).to have_content '中'
+        expect(task_list[2]).to have_content '低'
       end
     end
   end
