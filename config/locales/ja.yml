@@ -1,5 +1,17 @@
 ---
 ja:
+  enums:
+    task:
+      priority:
+        low: 低
+        middle: 中
+        high: 高
+      status:
+        waiting: 未着手
+        working: 着手
+        completed: 完了
+
+
   activerecord:
     attributes:
       task:
@@ -151,6 +163,7 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
+
   number:
     currency:
       format:
@@ -212,20 +225,6 @@ ja:
       mid: "%Y/%m/%d"
       short: "%m/%d %H:%M"
     pm: 午後
-
-  views:
-    tasks:
-      index:
-        waiting: '未着手'
-        working: '着手'
-        completed: '完了'
-  activerecord:
-    attributes:
-      task:
-        waiting: '未着手'
-        working: '着手'
-        completed: '完了'
-
 
   faker:
     address:

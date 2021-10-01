@@ -15,6 +15,7 @@ ja:
         waiting: 未着手
         working: 着手
         completed: 完了
+        priority: 優先順位
       user:
         title: タイトル
         name: 名前
