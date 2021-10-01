@@ -6,10 +6,16 @@ ja:
     attributes:
       task:
         id: ID
-        task_name: 名称
-        content: 詳しい説明
+        task_name: Task名称
+        content: 詳しい内容
         created_at: 登録日時
         updated_at: 更新日時
+        end_time: 終了期限
+        status: ステータス
+        waiting: 未着手
+        working: 着手
+        completed: 完了
+        priority: 優先順位
       user:
         title: タイトル
         name: 名前

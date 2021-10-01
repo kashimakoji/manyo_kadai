@@ -1,0 +1,13 @@
+ja:
+  tasks:
+    index:
+      title: 'ユーザ一覧'
+      waiting: 未着手
+      working: 着手
+      completed: 完了
+    show:
+      # 引数の指定もできる。
+      title: '%{user_name}さんのユーザ情報'
+    edit:
+      # view側で t(.titile), user_name: @user.name みたいな感じで設定できる
+      title: '%{user_name}さんのユーザ情報を編集'

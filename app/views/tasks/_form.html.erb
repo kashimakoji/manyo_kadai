@@ -10,18 +10,31 @@
     </div>
   <% end %>
 
-  <div class="task_name">
+  <div class="form-group">
     <%= form.label :task_name %>
-    <%= form.text_field :task_name %>
+    <%= form.text_field :task_name, class: 'form-control' %>
   </div>
-  <div class="content">
+  <div class="form-group">
     <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, rows: 3, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :end_time %>
+    <%= form.date_field :end_time, include_blank: true, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, {}, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {}, class: "form-control" %>
+
   </div>
   <br>
   <% if action_name == "edit" %>
-    <%= form.submit "更新する" %>
+    <%= form.submit "更新する", class: 'btn btn-primary' %>
   <% else %>
-    <%= form.submit "登録する" %>
+    <%= form.submit "登録する", class: 'btn btn-primary' %>
   <% end %>
 <% end %>

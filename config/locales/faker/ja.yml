@@ -1,24 +1,6 @@
 ---
 ja:
-  enums:
-    task:
-      priority:
-        low: 低
-        middle: 中
-        high: 高
-      status:
-        waiting: 未着手
-        working: 着手
-        completed: 完了
-
-
   activerecord:
-    attributes:
-      task:
-        status:
-          waiting: 未着手
-          working: 着手
-          completed: 完了
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
@@ -163,7 +145,6 @@ ja:
       create: 登録する
       submit: 保存する
       update: 更新する
-
   number:
     currency:
       format:

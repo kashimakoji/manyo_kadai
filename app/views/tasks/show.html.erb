@@ -1,14 +1,22 @@
 <h1>タスクの詳細</h1>
-<%= button_to '一覧画面', tasks_path , method: :get %>
+<%= button_to 'タスク一覧', tasks_path , method: :get, class: 'btn btn-primary' %>
 <hr>
 <table>
   <tr>
-    <th>名称：</th>
+    <th>Task名称：</th>
     <td><%= @task.task_name%></td>
   </tr>
   <tr>
-    <th>詳細：</th>
+    <th>詳しい内容：</th>
     <td><%= @task.content %></td>
+  </tr>
+  <tr>
+    <th>終了期限：</th>
+    <td><%= @task.end_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
+  </tr>
+  <tr>
+    <th>ステータス：</th>
+    <td><%= @task.status %></td>
   </tr>
 </table>
 <br>

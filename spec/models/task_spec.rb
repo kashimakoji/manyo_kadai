@@ -21,4 +21,31 @@ RSpec.describe 'タスクモデル機能', type: :model do
       end
     end
   end
+
+  describe 'タスクモデル機能' do
+    let!(:task) { FactoryBot.create(:task, task_name: 'task', status: 0) }
+    let!(:task_2) { FactoryBot.create(:task_2, task_name: 'sample', status: 1) }
+    let!(:task_3) { FactoryBot.create(:task_3, task_name: 'origin', status: 0) }
+    context 'scopeメソッドでタイトルの曖昧検索をした場合' do
+      it '検索キーワードを含むタスクが絞り込まれる' do
+        expect(Task.word_search('task')).to include(task)
+        expect(Task.word_search('task')).not_to include(task_2)
+        expect(Task.word_search('task').count).to eq 1
+      end
+    end
+    context 'scopeメソッドでステータス検索をした場合' do
+      it 'ステータスに完全一致するタスクが絞り込まれる' do
+        expect(Task.status_search(0)).to include(task)
+        expect(Task.status_search(0)).not_to include(task_2)
+        expect(Task.status_search(0).count).to eq 2
+      end
+    end
+    context 'scopeメソッドでタイトルの曖昧検索とステータス検索をした場合' do
+      it '検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる' do
+        expect(Task.word_search('task').status_search(0)).to include(task)
+        expect(Task.word_search('task').status_search(0)).not_to include(task_2)
+        expect(Task.word_search('task').status_search(0).count).to eq 1
+      end
+    end
+  end
 end

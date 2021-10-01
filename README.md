@@ -3,8 +3,10 @@
 |label_name:string|task_id(FK) |user_id(FK)     |admin:string          |
 |                 |label_id(FK)|task_name:string|user:string           |
 |                 |            |content:text    |email:string          |
-|                 |            |                |passwork_digest:string|
-
+|                 |            |end_time:datetime        |passwork_digest:string|
+|			|			|	created_at:datetime	|			|
+|  |  |status:integer  |  |
+|  |  |priority:integer    |  |
 
 # heroku 設定
 #### 設定
