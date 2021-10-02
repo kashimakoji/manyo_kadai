@@ -1,6 +1,6 @@
 |Label            |Labeling    |Task            |User                  |
 |  ----           |  ----      |  ----          |  ----                |
-|label_name:string|task_id(FK) |user_id(FK)     |admin:string          |
+|label_name:string|task_id(FK) |user_id(FK)     |admin:boolean         |
 |                 |label_id(FK)|task_name:string|user:string           |
 |                 |            |content:text    |email:string          |
 |                 |            |end_time:datetime        |passwork_digest:string|

@@ -19,8 +19,8 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '一覧表示機能' do
     before do
       FactoryBot.create(:task)
-      FactoryBot.create(:task_2)
       FactoryBot.create(:task_3)
+      FactoryBot.create(:task_2)
       visit tasks_path
       #task_list = all('.task_body')
     end
@@ -33,23 +33,15 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しく作成されたタスクが一番上に表示される' do
-        # FactoryBot.create(:task)
-        # FactoryBot.create(:task_2)
-        # FactoryBot.create(:task_3)
-        # visit tasks_path
         task_list = all('.task_body')
-        expect(task_list[0]).to have_content 'テストタスクネーム_3'
-        expect(task_list[1]).to have_content 'テストタスクネーム_2'
-        expect(task_list[2]).to have_content 'テストタスクネーム_1'
+        expect(task_list[0]).to have_content 'テストタスクネーム_2'
       end
     end
     context 'タスクの終了期限が降順に並んでいる場合' do
       it '終了期限が後のタスクが一番上に表示される' do
-        # FactoryBot.create(:task)
-        # FactoryBot.create(:task_2)
-        # FactoryBot.create(:task_3)
-        # visit tasks_path
+        sleep 0.5
         click_on "終了期限"
+        sleep 0.5
         task_list = all('.task_body')
         expect(task_list[0]).to have_content '2021/10/03'
         expect(task_list[1]).to have_content '2021/10/02'
@@ -58,7 +50,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タスクの優先順位が降順に並んでいる場合' do
       it '優先順位が高いタスクが一番上に表示される' do
+        sleep 0.5
         click_on "優先順位"
+        sleep 0.5
         task_list = all('.task_body')
         #binding.irb
         expect(task_list[0]).to have_content '高'
@@ -80,9 +74,9 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '検索機能' do
     before do
-      FactoryBot.create(:task)
-      FactoryBot.create(:task_2)
       FactoryBot.create(:task_3)
+      FactoryBot.create(:task_2)
+      FactoryBot.create(:task)
       visit tasks_path
     end
     context 'タイトルで曖昧検索をした場合' do

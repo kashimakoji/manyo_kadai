@@ -24,7 +24,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
-
 end
 
 group :development do
@@ -41,11 +40,13 @@ gem 'gimei'
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
-
 end
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails-i18n'
 gem 'enum_help'
 
 gem 'kaminari'
+
+gem 'bcrypt'
