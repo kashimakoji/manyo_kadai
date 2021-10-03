@@ -18,7 +18,12 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    # @task = Task.new(task_params)
+    # @task.user_id = current_user.id
+    @task = current_user.tasks.build(task_params)
+# binding.irb
+    @task.end_time = Date.today if @task.end_time.nil?
+# binding.irb
     if  @task.save
       redirect_to tasks_path, notice: "「#{@task.task_name}」登録しました"
     else

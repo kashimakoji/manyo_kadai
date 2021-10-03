@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    binding.irb
+    # binding.irb
     flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
