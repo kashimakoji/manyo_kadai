@@ -20,6 +20,7 @@
     <% end %>
 
     <% if logged_in? %>
+      <%= link_to "タスク一覧", tasks_path %>
       <%= link_to "プロフィール", user_path(current_user.id) %>
       <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
     <% else %>
