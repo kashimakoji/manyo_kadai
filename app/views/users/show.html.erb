@@ -1,3 +1,10 @@
-<h1><%= @user.name %>のページ</h1>
-<br>
+<h2><%= @user.name %>のページ</h2>
 <p>メールアドレス：<%= @user.email %></p>
+
+<%= link_to "タスク新規作成", new_task_path, class: 'btn btn-primary' %>
+<br><br>
+<%= form_with(url: tasks_path,  method: :get, local: true) do |form| %>
+  <%= form.text_field :search , placeholder: "Search"%>
+  <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, include_blank: "選択して下さい" %>
+  <%= form.submit '検索' %>
+<% end %>

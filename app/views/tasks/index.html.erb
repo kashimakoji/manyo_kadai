@@ -15,9 +15,9 @@
       <th>Task名称</th>
       <th>詳しい内容</th>
       <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
-      <!-- <th>作成日時</th> -->
       <th>ステータス</th>
       <th><%= link_to '優先順位', tasks_path(sort_priority: "true"), class: "priority" %></th>
+      <th>作成者</th>
     </tr>
   </thead>
 
@@ -29,6 +29,7 @@
       <td><%= l task.end_time, format: :mid %></td>
       <td><%= task.status_i18n %></td>
       <td><%= task.priority_i18n %></td>
+      <td><%= task.user.name  %></td>
       <td><%= button_to '詳細', task_path(task.id), method: :get %></td>
       <% if task.user == current_user %>
         <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
