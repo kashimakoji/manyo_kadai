@@ -1,0 +1,30 @@
+<ul>
+<% @user.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+<% end %>
+</ul>
+
+
+
+<h1><% @user.name %>の詳細</h1>
+<br>
+<%= link_to 'ユーザー一覧', admin_users_path, class: 'btn btn-brimary mr-3' %>
+<br><br>
+<table>
+  <tr>
+    <th><%= User.human_attribute_name(:id) %></th>
+    <td><%= @user.id %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:name) %></th>
+    <td><%= @user.name %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:email) %></th>
+    <td><%= @user.email %></td>
+  </tr>
+  <tr>
+    <th><%= User.human_attribute_name(:admin) %></th>
+    <th><%= @user.admin? ? 'あり' : 'なし' %></th>
+  </tr>
+</table>

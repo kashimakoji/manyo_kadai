@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   def show
     # @user = User.find(params[:id])
     redirect_to tasks_path if current_user != @user
+    @tasks = @user.tasks.page(params[:page]).per(10)
   end
 
   private

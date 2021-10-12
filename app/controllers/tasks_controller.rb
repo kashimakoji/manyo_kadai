@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.tasks.desc_sort.page(params[:page]).per(10)
+    # @tasks = Task.includes(:user).desc_sort.page(params[:page]).per(10)
     @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority] == "true"
     @tasks = @tasks.word_search(params[:search]) if params[:search].present?

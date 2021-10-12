@@ -1,5 +1,6 @@
 <h2><%= @user.name %>のページ</h2>
 <p>メールアドレス：<%= @user.email %></p>
+<p>管理者権限：<%= @user.admin? ? 'あり' : 'なし' %></p>
 
 <%= link_to "タスク新規作成", new_task_path, class: 'btn btn-primary' %>
 <br><br>
@@ -8,3 +9,41 @@
   <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, include_blank: "選択して下さい" %>
   <%= form.submit '検索' %>
 <% end %>
+
+<hr>
+<table class="table table-hover table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>Task名称</th>
+      <th>詳しい内容</th>
+      <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
+      <th>ステータス</th>
+      <th><%= link_to '優先順位', tasks_path(sort_priority: "true"), class: "priority" %></th>
+      <th>作成者</th>
+    </tr>
+  </thead>
+
+  <% @user.tasks.each do |user_task| %>
+  <tbody class="task_body">
+    <tr>
+      <td><%= link_to user_task.task_name, task_path(user_task.id) %></td>
+      <td><%= user_task.content %></td>
+      <td><%= l user_task.end_time, format: :mid %></td>
+      <td><%= user_task.status_i18n %></td>
+      <td><%= user_task.priority_i18n %></td>
+      <td><%= user_task.user.name  %></td>
+      <td><%= button_to '詳細', task_path(user_task.id), method: :get %></td>
+      <% if user_task.user == current_user %>
+        <td><%= button_to '編集', edit_task_path(user_task.id),method: :get %></td>
+        <td><%= button_to '削除', task_path(user_task.id), method: :delete, data: { confirm: "「#{user_task.task_name}」を削除していいですか？"} %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+      <% end %>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<br>
+
+<%= paginate @tasks %>

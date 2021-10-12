@@ -1,12 +1,28 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  # let(:user_a) { FactoryBot.create(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
+  # let(:user_b) { FactoryBot.create(:user2) }
+  # let(:user_c) { FactoryBot.create(:user3) }
+
+  let!(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create(:task, user: user) }
 
   describe '新規作成機能' do
-    context 'タスクを新規作成した場合' do
+    # before do
+    #   FactoryBot.create(user: user_a)
+    #   visit new_session_path
+    #   fill_in 'メールアドレス', with: ligin_user.email
+    #   fill_in 'パスワード', with: login_user.password
+    #   click_on 'ログインする'
+    # end
+
+    context 'ユーザーAがタスクを新規作成した場合' do
+      # let(:login_user) { user_a }
+
       it '作成したタスクが表示される' do
         visit new_task_path
-        fill_in 'Task名称', with: 'テストタスクネーム'
-        fill_in '詳しい内容', with: 'テストコンテント'
+        fill_in 'タスク名称', with: 'タスクネーム1'
+        fill_in '詳しい内容', with: 'コンテンツ1'
         fill_in '終了期限', with: Time.current
         select '完了', from: 'ステータス'
         select '中', from: '優先順位'
@@ -21,8 +37,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       FactoryBot.create(:task)
       FactoryBot.create(:task_3)
       FactoryBot.create(:task_2)
-      visit tasks_path
-      #task_list = all('.task_body')
+      # visit new_session_path
+      # fill_in ''
+      # visit tasks_path
     end
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
