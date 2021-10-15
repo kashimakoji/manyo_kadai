@@ -1,22 +1,23 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  # let(:user_a) { FactoryBot.create(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
-  # let(:user_b) { FactoryBot.create(:user2) }
-  # let(:user_c) { FactoryBot.create(:user3) }
+  # let(:user) { FactoryBot.build(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
+  # let(:user_b) { FactoryBot.build(:user2) }
+  # let(:user_c) { FactoryBot.build(:user3) }
+  # # let!(:user) { FactoryBot.build(:user) }
+  # let!(:task) { FactoryBot.build(:task, user: user_a) }
+  @user_a = FactoryBot.create(:user, name: 'ユーザーA', email: 'user_a@test.com')
 
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:task) { FactoryBot.create(:task, user: user) }
 
   describe '新規作成機能' do
-    # before do
-    #   FactoryBot.create(user: user_a)
-    #   visit new_session_path
-    #   fill_in 'メールアドレス', with: ligin_user.email
-    #   fill_in 'パスワード', with: login_user.password
-    #   click_on 'ログインする'
-    # end
-
-    context 'ユーザーAがタスクを新規作成した場合' do
+    before do
+      # FactoryBot.build(user: user_a)
+      visit new_session_path
+      fill_in 'メールアドレス', with: @user_a.email
+      binding.irb
+      fill_in 'パスワード', with: @user_a.password
+      click_button 'ログインする'
+    end
+    context '新規作成した場合' do
       # let(:login_user) { user_a }
 
       it '作成したタスクが表示される' do

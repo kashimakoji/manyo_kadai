@@ -1,23 +1,26 @@
 FactoryBot.define do
+
   factory :user do
     name { "アドミニストレータ" }
-    email { "admin@a.com" }
+    email { "admin_1@test.com" }
     password { "aaa" }
-    #password_confirmation { "aaa"}
+    password_confirmation { "aaa"}
     admin { true }
   end
-  factory :user2, class: User do
-    name { "一般A" }
-    email { "aa@a.com" }
+
+  factory :user_b, class: User do
+    name { "一般B" }
+    email { "bbb2@test.com" }
     password { "aaa" }
-    #password_confirmation { "aaa" }
+    password_confirmation { "aaa" }
     admin { false }
   end
-  factory :user3, class: User do
-    name { "一般B" }
-    email { "bb@a.com" }
+
+  factory :user_c, class: User do
+    name { "一般C" }
+    email { "ccc@test.com" }
     password { "aaa" }
-    #password_confirmation { "aaa" }
+    password_confirmation { "aaa" }
     admin { false }
   end
 

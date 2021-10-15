@@ -24,6 +24,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
+  gem 'database_cleaner'
 end
 
 group :development do
