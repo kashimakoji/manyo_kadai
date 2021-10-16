@@ -1,4 +1,5 @@
 User.create!(
+  # id: '1',
   name: 'admin',
   email: 'admin@admin.com',
   admin: true,
@@ -6,13 +7,13 @@ User.create!(
   password_confirmation: 'aa',
 )
 
-User.create!(
-  name: 'A',
-  email: 'aa@aa',
-  admin: false,
-  password: 'aa',
-  password_confirmation: 'aa',
-)
+# User.create!(
+#   name: 'A',
+#   email: 'aa@aa',
+#   admin: false,
+#   password: 'aa',
+#   password_confirmation: 'aa',
+# )
 
 User.create!(
   name: 'B',
@@ -30,6 +31,7 @@ User.create!(
   User.all.each do |user|
     Task.create!(
       user_id: user.id,
+      # user_id: '1',
       task_name: task_name,
       content: content,
       end_time: end_time,
