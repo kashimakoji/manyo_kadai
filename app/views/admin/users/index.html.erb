@@ -1,0 +1,32 @@
+<h1>ユーザー管理</h1>
+<br>
+<%= link_to 'ユーザー新規登録', new_admin_user_path, class: 'btn btn-primary' %>
+<hr>
+
+<table class="table table-hover table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>ユーザーネーム</th>
+      <th>メールアドレス</th>
+      <th>管理者権限</th>
+      <th>タスク数</th>
+      <th></th><th></th><th></th>
+    </tr>
+  </thead>
+
+  <% @users.each do |user| %>
+  <tbody class="user_body">
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.admin? ? 'あり' : 'なし' %></td>
+      <td><%= user.tasks.length %></td>
+      <td><%= link_to '詳細', admin_user_path(user.id), class: 'btn btn-primary' %></td>
+      <td><%= link_to '編集', edit_admin_user_path(user.id), class: 'btn btn-primary' %></td>
+      <td><%= link_to '削除', admin_user_path(user.id), class: 'btn btn-danger',method: :delete, data: { confirm: "「#{user.name}」を削除していいですか？"} %></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

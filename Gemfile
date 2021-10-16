@@ -24,7 +24,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
-
+  gem 'database_cleaner'
 end
 
 group :development do
@@ -33,6 +33,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'launchy'
+  gem 'bullet'
 end
 
 gem 'faker'
@@ -41,11 +42,13 @@ gem 'gimei'
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
-
 end
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'rails-i18n'
 gem 'enum_help'
 
 gem 'kaminari'
+
+gem 'bcrypt'

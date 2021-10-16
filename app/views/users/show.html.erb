@@ -1,4 +1,6 @@
-<h1>タスク一覧</h1>
+<h2><%= @user.name %>のページ</h2>
+<p>メールアドレス：<%= @user.email %></p>
+<p>管理者権限：<%= @user.admin? ? 'あり' : 'なし' %></p>
 
 <%= link_to "タスク新規作成", new_task_path, class: 'btn btn-primary' %>
 <br><br>
@@ -12,7 +14,7 @@
 <table class="table table-hover table-sm">
   <thead class="thead-light">
     <tr>
-      <th>タスク名称</th>
+      <th>Task名称</th>
       <th>詳しい内容</th>
       <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
       <th>ステータス</th>
@@ -21,19 +23,19 @@
     </tr>
   </thead>
 
-  <% @tasks.each do |task| %>
+  <% @user.tasks.each do |user_task| %>
   <tbody class="task_body">
     <tr>
-      <td><%= link_to task.task_name, task_path(task.id) %></td>
-      <td><%= task.content %></td>
-      <td><%= l task.end_time, format: :mid %></td>
-      <td><%= task.status_i18n %></td>
-      <td><%= task.priority_i18n %></td>
-      <td><%= task.user.name  %></td>
-      <td><%= link_to '詳細', task_path(task.id), class: 'btn btn-primary' %></td>
-      <% if task.user == current_user %>
-        <td><%= link_to '編集', edit_task_path(task.id), class: 'btn btn-primary' %></td>
-        <td><%= link_to '削除', task_path(task.id), method: :delete, class: 'btn btn-danger', data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
+      <td><%= link_to user_task.task_name, task_path(user_task.id) %></td>
+      <td><%= user_task.content %></td>
+      <td><%= l user_task.end_time, format: :mid %></td>
+      <td><%= user_task.status_i18n %></td>
+      <td><%= user_task.priority_i18n %></td>
+      <td><%= user_task.user.name  %></td>
+      <td><%= button_to '詳細', task_path(user_task.id), method: :get %></td>
+      <% if user_task.user == current_user %>
+        <td><%= button_to '編集', edit_task_path(user_task.id),method: :get %></td>
+        <td><%= button_to '削除', task_path(user_task.id), method: :delete, data: { confirm: "「#{user_task.task_name}」を削除していいですか？"} %></td>
       <% else %>
         <td></td>
         <td></td>

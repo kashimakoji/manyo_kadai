@@ -2,7 +2,15 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth if Rails.env.production?
   protect_from_forgery with: :exception
 
+  include SessionsHelper
+
+  before_action :login_required
+
   private
+  def login_required #ログインしていなければログインページに飛ばす
+    redirect_to new_session_path unless current_user
+  end
+
 
   def production?
     Rails.env.production?
