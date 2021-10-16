@@ -1,30 +1,37 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  # let(:user) { FactoryBot.build(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
-  # let(:user_b) { FactoryBot.build(:user2) }
-  # let(:user_c) { FactoryBot.build(:user3) }
-  # # let!(:user) { FactoryBot.build(:user) }
-  # let!(:task) { FactoryBot.build(:task, user: user_a) }
-  @user_a = FactoryBot.create(:user, name: 'ユーザーA', email: 'user_a@test.com')
-
+  let!(:user) { FactoryBot.create(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
+  let!(:user_b) { FactoryBot.create(:user_b) }
+  
+  let!(:task) { FactoryBot.create(:task, user: user) }
+  let!(:task_2) { FactoryBot.create(:task_2, user: user_b) }
+  let!(:task_3) { FactoryBot.create(:task_3, user: user) }
+  let!(:task_4) { FactoryBot.create(:task_4, user: user) }
+  let!(:task_5) { FactoryBot.create(:task_5, user: user_b) }
+  # @user_a = FactoryBot.create(:user, name: 'ユーザーA', email: 'user_a@test.com')
+  before do
+    visit new_session_path
+    fill_in 'メールアドレス', with: login_user.email
+    fill_in 'パスワード', with: login_user.password
+    click_on 'ログインする'
+  end
 
   describe '新規作成機能' do
-    before do
-      # FactoryBot.build(user: user_a)
-      visit new_session_path
-      fill_in 'メールアドレス', with: @user_a.email
-      binding.irb
-      fill_in 'パスワード', with: @user_a.password
-      click_button 'ログインする'
-    end
+    # before do
+    #   visit new_session_path
+    #   fill_in 'メールアドレス', with: login_user.email
+    #   fill_in 'パスワード', with: login_user.password
+    #   click_on 'ログインする'
+    # end
+
     context '新規作成した場合' do
-      # let(:login_user) { user_a }
+      let(:login_user) { user }
 
       it '作成したタスクが表示される' do
         visit new_task_path
         fill_in 'タスク名称', with: 'タスクネーム1'
         fill_in '詳しい内容', with: 'コンテンツ1'
-        fill_in '終了期限', with: Time.current
+        fill_in '終了期限', with: Time.now
         select '完了', from: 'ステータス'
         select '中', from: '優先順位'
         click_on "登録する"
@@ -34,38 +41,34 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '一覧表示機能' do
-    before do
-      FactoryBot.create(:task)
-      FactoryBot.create(:task_3)
-      FactoryBot.create(:task_2)
-      # visit new_session_path
-      # fill_in ''
-      # visit tasks_path
-    end
+   let(:login_user) { user }
+
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
-        task = FactoryBot.create(:task, task_name: 'task')
         visit tasks_path
-        expect(page).to have_content 'task'
+        expect(page).to have_content 'タスクネーム1'
       end
     end
+
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しく作成されたタスクが一番上に表示される' do
         task_list = all('.task_body')
-        expect(task_list[0]).to have_content 'テストタスクネーム_2'
+        expect(task_list[0]).to have_content 'タスクネーム1'
       end
     end
+
     context 'タスクの終了期限が降順に並んでいる場合' do
       it '終了期限が後のタスクが一番上に表示される' do
         sleep 0.5
         click_on "終了期限"
         sleep 0.5
         task_list = all('.task_body')
-        expect(task_list[0]).to have_content '2021/10/03'
-        expect(task_list[1]).to have_content '2021/10/02'
+        expect(task_list[0]).to have_content '2021/10/04'
+        expect(task_list[1]).to have_content '2021/10/03'
         expect(task_list[2]).to have_content '2021/10/01'
       end
     end
+
     context 'タスクの優先順位が降順に並んでいる場合' do
       it '優先順位が高いタスクが一番上に表示される' do
         sleep 0.5
@@ -81,27 +84,28 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '詳細表示機能' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示される' do
-         task = FactoryBot.create(:task)
-         visit task_path(task.id)
-         expect(page).to have_content 'テストタスクネーム_1'
-       end
-     end
+    let(:login_user) { user }
+
+      context '任意のタスク詳細画面に遷移した場合' do
+        it '該当タスクの内容が表示される' do
+          visit tasks_path(user)
+          all('tbody td')[6].click_on '詳細'
+          expect(page).to have_content 'テストタスクネーム4'
+        end
+      end
   end
 
   describe '検索機能' do
+    let(:login_user) { user }
     before do
-      FactoryBot.create(:task_3)
-      FactoryBot.create(:task_2)
-      FactoryBot.create(:task)
       visit tasks_path
     end
+
     context 'タイトルで曖昧検索をした場合' do
       it "検索キーワードを含むタスクで絞り込まれる" do
-        fill_in 'search', with: '2'
+        fill_in 'search', with: 'タスクネーム1'
         click_on '検索'
-        expect(page).to have_content '2'
+        expect(page).to have_content 'タスクネーム1'
       end
     end
     context 'ステータス検索をした場合' do
@@ -113,11 +117,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
     context 'タイトル曖昧検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスクが絞り込まれる" do
-        fill_in 'search', with: '2'
+        fill_in 'search', with: 'タスクネーム1'
         select '完了', from: 'status'
         click_on '検索'
         expect(page).to have_content '完了'
-        expect(page).to have_content '2'
+        expect(page).to have_content 'タスクネーム1'
       end
     end
 

@@ -12,7 +12,7 @@
 <table class="table table-hover table-sm">
   <thead class="thead-light">
     <tr>
-      <th>Task名称</th>
+      <th>タスク名称</th>
       <th>詳しい内容</th>
       <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
       <th>ステータス</th>
@@ -30,10 +30,10 @@
       <td><%= task.status_i18n %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.user.name  %></td>
-      <td><%= button_to '詳細', task_path(task.id), method: :get %></td>
+      <td><%= link_to '詳細', task_path(task.id), class: 'btn btn-primary' %></td>
       <% if task.user == current_user %>
-        <td><%= button_to '編集', edit_task_path(task.id),method: :get %></td>
-        <td><%= button_to '削除', task_path(task.id), method: :delete, data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
+        <td><%= link_to '編集', edit_task_path(task.id), class: 'btn btn-primary' %></td>
+        <td><%= link_to '削除', task_path(task.id), method: :delete, class: 'btn btn-danger', data: { confirm: "「#{task.task_name}」を削除していいですか？"} %></td>
       <% else %>
         <td></td>
         <td></td>

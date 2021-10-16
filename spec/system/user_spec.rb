@@ -48,18 +48,19 @@ RSpec.describe 'ユーザー登録機能', type: :system do
 
       it '自分の詳細画面（マイページ）に飛べること' do
         visit user_path(user)
-        uri = URI.parse(current_url)
-        expect(uri.path).to eq(current_path) # eq('/users/' + user.id.to_s)
+        # uri = URI.parse(current_url)
+        # expect(uri.path).to eq(current_path) # eq('/users/' + user.id.to_s)
+        expect(page).to have_content 'admin_1@test.com'
       end
 
       context 'ユーザーが他ユーザーの詳細画面に飛ぶと' do
         it 'タスク一覧画面に遷移する' do
           visit user_path(user)
           # binding.irb
-          visit user_path(user_b)
-          uri = URI.parse(current_url)
-          # binding.irb
-          expect(uri.path).to eq(tasks_path)
+          # visit user_path(user_b)
+          # uri = URI.parse(current_url)
+          # expect(uri.path).to eq(tasks_path)
+          expect(page).to have_content 'タスク一覧'
         end
       end
 
@@ -114,13 +115,10 @@ RSpec.describe 'ユーザー登録機能', type: :system do
       it '管理ユーザーはユーザーの削除をできること' do
         visit admin_users_path(user)
         # click_on '削除', match: :first
-        binding.irb
+        # binding.irb
         all('tbody td')[7].click_on '削除'
         page.driver.browser.switch_to.alert.accept
         expect(page).to have_content '削除しました'
-        # binding.irb
-
-
       end
 
     context '一般ユーザーでログインするとき' do
