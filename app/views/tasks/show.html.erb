@@ -18,6 +18,14 @@
     <th>ステータス：</th>
     <td><%= @task.status %></td>
   </tr>
+  <tr>
+    <th>ラベル</th>
+    <td>
+      <% @task.labels.each do |label| %>
+         <label class='badge badge-secondary'><%= label.name %></label>
+      <% end %>
+    </td>
+  </tr>
 </table>
 <br>
 <%= button_to '編集', edit_task_path, method: :get %>

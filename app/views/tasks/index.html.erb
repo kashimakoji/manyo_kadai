@@ -5,6 +5,7 @@
 <%= form_with(url: tasks_path,  method: :get, local: true) do |form| %>
   <%= form.text_field :search , placeholder: "Search"%>
   <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, include_blank: "選択して下さい" %>
+  <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: "選択して下さい" } ) %>
   <%= form.submit '検索' %>
 <% end %>
 
@@ -14,9 +15,9 @@
     <tr>
       <th>タスク名称</th>
       <th>詳しい内容</th>
-      <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
+      <th><%= link_to '終了期限🔻', tasks_path(sort_expired: "true"), class: "end_time" %></th>
       <th>ステータス</th>
-      <th><%= link_to '優先順位', tasks_path(sort_priority: "true"), class: "priority" %></th>
+      <th><%= link_to '優先順位🔻', tasks_path(sort_priority: "true"), class: "priority" %></th>
       <th>作成者</th>
       <th>ラベル</th>
     </tr>
@@ -33,7 +34,7 @@
       <td><%= task.user.name  %></td>
       <td>
         <% task.labels.each do |label| %>
-          <%= label.name %>
+           <label class='badge badge-secondary'><%= label.name %></label>
         <% end %>
       </td>
       <td><%= link_to '詳細', task_path(task.id), class: 'btn btn-primary' %></td>
