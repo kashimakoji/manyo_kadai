@@ -10,7 +10,7 @@ class TasksController < ApplicationController
     #@tasks = @tasks.where('task_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
     @tasks = @tasks.status_search(params[:status]) if params[:status].present?
     @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
-    binding.irb
+    # binding.irb
   end
 
   def show
