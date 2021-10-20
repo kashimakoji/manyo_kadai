@@ -22,6 +22,10 @@ class User < ApplicationRecord
     # errors[:base] << '管理者は１人以上必要ですベンダー'
     throw(:abort) if User.where(admin:true).count == 1 && User.where(admin:true).first.id == self.id && self.admin == false
 
+    # if User.where(admin: true).count == 1 && self.admin == false #他人のコード
+    #     errors.add(:admin,"は、最低でも１人は必要です。")
+    #     throw(:abort)
+
     # if User.where(admin: true).length == 0
     #   raise ActiveRecord::Rollback
       # self.admin = true

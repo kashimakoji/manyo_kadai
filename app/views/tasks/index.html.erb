@@ -18,6 +18,7 @@
       <th>ステータス</th>
       <th><%= link_to '優先順位', tasks_path(sort_priority: "true"), class: "priority" %></th>
       <th>作成者</th>
+      <th>ラベル</th>
     </tr>
   </thead>
 
@@ -30,6 +31,11 @@
       <td><%= task.status_i18n %></td>
       <td><%= task.priority_i18n %></td>
       <td><%= task.user.name  %></td>
+      <td>
+        <% task.labels.each do |label| %>
+          <%= label.name %>
+        <% end %>
+      </td>
       <td><%= link_to '詳細', task_path(task.id), class: 'btn btn-primary' %></td>
       <% if task.user == current_user %>
         <td><%= link_to '編集', edit_task_path(task.id), class: 'btn btn-primary' %></td>

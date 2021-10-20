@@ -29,8 +29,18 @@
   <div class="form-group">
     <%= form.label :priority %>
     <%= form.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {}, class: "form-control" %>
-
   </div>
+
+  <% Label.includes(:tasks, :labellings).each do |label| %>
+    <% if action_name == 'new' || action_name == 'create' %>
+      <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id], "" %>
+      <%= label.name %>
+    <% elsif action_name == 'edit' || action_name == 'update' %>
+      <%= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false}, label[:id], "" %>
+      <%= label.name %>
+    <% end %>
+  <% end %>
+
   <br>
   <% if action_name == "edit" %>
     <%= form.submit "更新する", class: 'btn btn-primary' %>

@@ -10,6 +10,8 @@ class Task < ApplicationRecord
   enum priority: { low: 0, middle: 1, high: 2 }
 
   belongs_to :user
+  has_many :labellings, dependent: :destroy
+  has_many :labels, through: :labellings
 
   # class << self
   #   def localed_statuses    #enum日本語化メソッド

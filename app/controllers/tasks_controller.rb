@@ -37,6 +37,8 @@ class TasksController < ApplicationController
   end
 
   def update
+    binding.irb
+    @task.labellings.delete_all unless params[:task][:label_ids]
     @task.update(task_params)
     redirect_to tasks_path, notice: "「#{@task.task_name}」を更新しました"
   end
@@ -48,7 +50,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:task_name, :content, :end_time, :status, :priority)
+    params.require(:task).permit(:task_name, :content, :end_time, :status, :priority, :name, :user_id, label_ids: [])
   end
 
   def set_task
