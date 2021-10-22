@@ -1,0 +1,18 @@
+<h1>オリジナルラベル作成</h1>
+<br>
+<%= form_with(model: @label, url: labels_path, local: true) do |f| %>
+  <%= f.label :name, 'ラベル名', class: "form-label " %>
+  <%= f.text_field :name, class: "form-control form-control-sm" %>
+  <%= f.submit "作成", class: "btn btn-outline-secondary btn-sm" %>
+<% end %>
+<br>
+
+
+<% @labels.each do |label| %>
+  <table>
+    <tr>
+      <td><%= label.name %></td>
+      <td><%= link_to "削除", label_path(label.id), method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: "削除して良いですか？" } %></td>
+    </tr>
+  </table>
+<% end %>

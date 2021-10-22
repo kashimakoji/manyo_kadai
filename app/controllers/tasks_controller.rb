@@ -2,8 +2,9 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = current_user.tasks.desc_sort.page(params[:page]).per(10)
-    # @tasks = Task.includes(:user).desc_sort.page(params[:page]).per(10)
+    @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
+    # @tasks = current_user.tasks.includes(user: :labels).desc_sort.page(params[:page]).per(10)
+    # @tasks = current_user.tasks.desc_sort.page(params[:page]).per(10) # N+1問題
     @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority] == "true"
     @tasks = @tasks.word_search(params[:search]) if params[:search].present?
@@ -39,8 +40,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    # binding.irb
-    @task.labellings.delete_all unless params[:task][:label_ids]
+    @task.labellings.delete_all unless params[:task][:label_ids] #空のチェックボックスを許可
     @task.update(task_params)
     redirect_to tasks_path, notice: "「#{@task.task_name}」を更新しました"
   end

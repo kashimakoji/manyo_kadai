@@ -4,8 +4,9 @@ class Admin::LabelsController < ApplicationController
 
   def new
     @label = Label.new
-    @labels = Label.includes(:tasks).all
-    # @labels = Label.all
+    # @labels = Label.includes(:tasks, :labellings).all
+    @labels = Label.all
+    # @label = Label.find(params[:id]) if action_name == "edit"
   end
 
   def create
@@ -45,7 +46,7 @@ class Admin::LabelsController < ApplicationController
 
   def require_admin
     redirect_to tasks_path  unless current_user.admin?
-    # flash[:notice] = '管理者のみアクセスできます！'
+    flash[:notice] = '管理者のみアクセスできます！'
   end
 
 end

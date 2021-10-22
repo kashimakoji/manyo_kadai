@@ -1,12 +1,13 @@
-<h2><%= @user.name %>のページ</h2>
-<p>メールアドレス：<%= @user.email %></p>
-<p>管理者権限：<%= @user.admin? ? 'あり' : 'なし' %></p>
+<h2><%= current_user.name %>のページ</h2>
+<p>メールアドレス：<%= current_user.email %></p>
+<p>管理者権限：<%= current_user.admin? ? 'あり' : 'なし' %></p>
 
 <%= link_to "タスク新規作成", new_task_path, class: 'btn btn-primary' %>
 <br><br>
 <%= form_with(url: tasks_path,  method: :get, local: true) do |form| %>
   <%= form.text_field :search , placeholder: "Search"%>
   <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, include_blank: "選択して下さい" %>
+  <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: "選択して下さい" } ) %>
   <%= form.submit '検索' %>
 <% end %>
 
@@ -16,14 +17,15 @@
     <tr>
       <th>Task名称</th>
       <th>詳しい内容</th>
-      <th><%= link_to '終了期限', tasks_path(sort_expired: "true"), class: "end_time" %></th>
+      <th><%= link_to '終了期限🔽', tasks_path(sort_expired: "true"), class: "end_time" %></th>
       <th>ステータス</th>
-      <th><%= link_to '優先順位', tasks_path(sort_priority: "true"), class: "priority" %></th>
+      <th><%= link_to '優先順位🔽', tasks_path(sort_priority: "true"), class: "priority" %></th>
       <th>作成者</th>
+      <th>ラベル</th>
     </tr>
   </thead>
 
-  <% @user.tasks.each do |user_task| %>
+  <% @tasks.each do |user_task| %>
   <tbody class="task_body">
     <tr>
       <td><%= link_to user_task.task_name, task_path(user_task.id) %></td>
@@ -32,6 +34,12 @@
       <td><%= user_task.status_i18n %></td>
       <td><%= user_task.priority_i18n %></td>
       <td><%= user_task.user.name  %></td>
+      <td>
+        <% user_task.labels.each do |label| %>
+           <label class='badge badge-secondary'><%= label.name %></label>
+        <% end %>
+      </td>
+
       <td><%= button_to '詳細', task_path(user_task.id), method: :get %></td>
       <% if user_task.user == current_user %>
         <td><%= button_to '編集', edit_task_path(user_task.id),method: :get %></td>

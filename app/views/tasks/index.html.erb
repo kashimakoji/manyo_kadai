@@ -1,6 +1,7 @@
 <h1>タスク一覧</h1>
 
 <%= link_to "タスク新規作成", new_task_path, class: 'btn btn-primary' %>
+<%= link_to "オリジナルラベル作成", new_label_path, class: 'btn btn-warning' %>
 <br><br>
 <%= form_with(url: tasks_path,  method: :get, local: true) do |form| %>
   <%= form.text_field :search , placeholder: "Search"%>
