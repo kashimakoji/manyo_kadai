@@ -4,7 +4,7 @@ class LabelsController < ApplicationController
   def new
     @label = Label.new
     # @labels = Label.all
-    @labels = current_user.labels.includes(:tasks)
+    @labels = current_user.labels
     # binding.irb
   end
 
