@@ -6,6 +6,7 @@ class Task < ApplicationRecord
   scope :word_search, -> (para){ where('task_name LIKE ?', "%#{(para)}%") }
               #@tasks = @tasks.  where('task_name LIKE ?', "%#{params[:search]}%")
   scope :status_search, -> (para){ where(status: para) }
+  scope :label_search, -> (para){ where(labels: { id: (para) }) }
 
   enum status: { waiting: 0, working: 1, completed: 2 }
   enum priority: { low: 0, middle: 1, high: 2 }

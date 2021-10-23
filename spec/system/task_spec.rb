@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   let!(:user) { FactoryBot.create(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
   let!(:user_b) { FactoryBot.create(:user_b) }
-  
+
   let!(:task) { FactoryBot.create(:task, user: user) }
   let!(:task_2) { FactoryBot.create(:task_2, user: user_b) }
   let!(:task_3) { FactoryBot.create(:task_3, user: user) }
@@ -17,12 +17,6 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '新規作成機能' do
-    # before do
-    #   visit new_session_path
-    #   fill_in 'メールアドレス', with: login_user.email
-    #   fill_in 'パスワード', with: login_user.password
-    #   click_on 'ログインする'
-    # end
 
     context '新規作成した場合' do
       let(:login_user) { user }
@@ -124,7 +118,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'タスクネーム1'
       end
     end
-
   end
 
 end
