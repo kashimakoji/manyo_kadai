@@ -3,7 +3,6 @@ class TasksController < ApplicationController
 
   def index
     @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
-    # @tasks = current_user.tasks.includes(user: :labels).desc_sort.page(params[:page]).per(10)
     # @tasks = current_user.tasks.desc_sort.page(params[:page]).per(10) # N+1問題
     @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority] == "true"

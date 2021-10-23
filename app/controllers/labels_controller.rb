@@ -3,16 +3,18 @@ class LabelsController < ApplicationController
 
   def new
     @label = Label.new
-    # @labels = Label.includes(:tasks).all
-    @labels = Label.all
+    # @labels = Label.all
+    @labels = current_user.labels
+    # binding.irb
   end
 
   def create
-    @label = Label.new(label_params)
+    # @label = Label.new(label_params)
+    @label = current_user.labels.build(label_params)
     if @label.save
       redirect_to new_label_path, notice: "ラベル「#{@label.name}」を作成しました"
     else
-      render :new
+      render :new if @labels.invalid?
     end
   end
 
