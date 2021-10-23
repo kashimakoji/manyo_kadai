@@ -9,7 +9,7 @@
 <%= form_with(url: tasks_path,  method: :get, local: true) do |form| %>
   <%= form.text_field :search , placeholder: "Search"%>
   <%= form.select :status, Task.statuses.keys.map {|k| [I18n.t("enums.task.status.#{k}"), k]}, include_blank: "選択して下さい" %>
-  <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: "選択して下さい" } ) %>
+  <%= form.select("label_id", current_user.labels.pluck(:name, :id), { include_blank: "選択して下さい" } ) %>
   <%= form.submit '検索' %>
 <% end %>
 
