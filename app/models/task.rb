@@ -2,7 +2,7 @@ class Task < ApplicationRecord
   validates :task_name, presence: true
   validates :content, presence: true
 
-  scope :desc_sort, -> { order(created_at: :desc) }
+  # scope :desc_sort, -> { order(created_at: :desc) } #ApplicationRecordへ移動
   scope :word_search, -> (para){ where('task_name LIKE ?', "%#{(para)}%") }
               #@tasks = @tasks.  where('task_name LIKE ?', "%#{params[:search]}%")
   scope :status_search, -> (para){ where(status: para) }

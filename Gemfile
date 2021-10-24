@@ -25,6 +25,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
+  gem 'bullet'
 end
 
 group :development do
@@ -33,7 +34,6 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'launchy'
-  gem 'bullet'
 end
 
 gem 'faker'

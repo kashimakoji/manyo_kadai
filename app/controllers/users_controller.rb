@@ -20,7 +20,11 @@ class UsersController < ApplicationController
 
   def show
     redirect_to tasks_path unless current_user
-    @tasks = current_user.tasks.includes(:labels).page(params[:page]).per(10)
+    admins = User.where(admin: true)
+    @labels = admins.map(&:labels)
+    @labels << current_user.try(:labels) if current_user.admin != true
+    @labels = @labels.flatten
+    @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
     # @user = User.find(params[:id]) #カレントユーザーの情報を取りたいので上記に変更
   end
 

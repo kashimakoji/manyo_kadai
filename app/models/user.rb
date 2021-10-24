@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :labels, dependent: :destroy
 
+  # scope :desc_sort, -> { order(created_at: :desc) }  #ApplicationRecordへ移動
+
   before_destroy :destroy_stopped
   # after_update :update_stopped
   before_update :update_stopped

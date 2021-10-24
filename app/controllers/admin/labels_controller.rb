@@ -4,9 +4,7 @@ class Admin::LabelsController < ApplicationController
 
   def new
     @label = Label.new
-    # @labels = Label.includes(:tasks, :labellings).all
     @labels = Label.all
-    # @label = Label.find(params[:id]) if action_name == "edit"
   end
 
   def create

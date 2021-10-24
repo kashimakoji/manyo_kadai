@@ -1,15 +1,33 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
+  # user
   let!(:user) { FactoryBot.create(:user) } #, name: 'アドミンユーザーA', email: 'admin@a.com') }
   let!(:user_b) { FactoryBot.create(:user_b) }
 
+  # tasks
   let!(:task) { FactoryBot.create(:task, user: user) }
   let!(:task_2) { FactoryBot.create(:task_2, user: user_b) }
   let!(:task_3) { FactoryBot.create(:task_3, user: user) }
   let!(:task_4) { FactoryBot.create(:task_4, user: user) }
   let!(:task_5) { FactoryBot.create(:task_5, user: user_b) }
+
+  # labels
+  let!(:label) { FactoryBot.create(:label, user: user) }
+  let!(:second_label) { FactoryBot.create(:second_label, user: user) }
+  let!(:third_label) { FactoryBot.create(:third_label, user: user) }
+  let!(:fourth_label) { FactoryBot.create(:fourth_label, user: user) }
+  let!(:fifth_label) { FactoryBot.create(:fifth_label, user: user) }
+
+  # labellings
+  let!(:labelling) { FactoryBot.create(:labelling, label: label, task: task) }
+  let!(:second_labelling) { FactoryBot.create(:labelling, label: second_label, task: task_3) }
+  let!(:third_labelling) { FactoryBot.create(:labelling, label: third_label, task: task_3) }
+  let!(:fourth_labelling) { FactoryBot.create(:labelling, label: fourth_label, task: task_4) }
+  let!(:fifth_labelling) { FactoryBot.create(:labelling, label: fifth_label, task: task_4) }
+
   # @user_a = FactoryBot.create(:user, name: 'ユーザーA', email: 'user_a@test.com')
   before do
+    # @user = FactoryBot.create(:user)
     visit new_session_path
     fill_in 'メールアドレス', with: login_user.email
     fill_in 'パスワード', with: login_user.password
@@ -28,8 +46,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         fill_in '終了期限', with: Time.now
         select '完了', from: 'ステータス'
         select '中', from: '優先順位'
+        find("#task_label_ids_3").click
+        find("#task_label_ids_4").click
         click_on "登録する"
         expect(page).to have_content '登録しました'
+        expect(page).to have_content 'third_label'
+        expect(page).to have_content 'fourth_label'
       end
     end
   end
@@ -118,6 +140,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'タスクネーム1'
       end
     end
+  end
+
+  describe 'ラベル作成機能' do
+    let(:login_user) { user }
+
+    context '' do
+
+    end
+
   end
 
 end

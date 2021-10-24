@@ -1,18 +1,19 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :get_labels, only: [:new, :edit, :index]
 
   def index
-    @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
+    # @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
+    @tasks = current_user.tasks.includes(:labels).desc_sort
     # @tasks = current_user.tasks.desc_sort.page(params[:page]).per(10) # N+1問題
     @tasks = @tasks.reorder(end_time: :desc) if params[:sort_expired] == "true"
     @tasks = @tasks.reorder(priority: :desc) if params[:sort_priority] == "true"
     @tasks = @tasks.word_search(params[:search]) if params[:search].present?
     #@tasks = @tasks.where('task_name LIKE ?', "%#{params[:search]}%") if params[:search].present?
     @tasks = @tasks.status_search(params[:status]) if params[:status].present?
-    # @tasks = @tasks.eager_load(:labels).eager_load(:labellings).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     # @tasks = @tasks.includes(:labellings).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     @tasks = @tasks.includes(:labellings).label_search(params[:label_id]) if params[:label_id].present?
-    # binding.irb
+    @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def show
@@ -20,7 +21,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task  = Task.new
+    @task = Task.new
   end
 
   def create
@@ -58,6 +59,13 @@ class TasksController < ApplicationController
 
   def set_task
     @task = current_user.tasks.find(params[:id])
+  end
+
+  def get_labels
+    admins = User.where(admin: true)
+    @labels = admins.map(&:labels)
+    @labels << current_user.try(:labels) if current_user.admin != true
+    @labels = @labels.flatten
   end
 
 end
