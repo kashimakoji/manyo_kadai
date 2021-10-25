@@ -11,14 +11,14 @@ RSpec.describe 'タスク管理機能', type: :system do
   let!(:task_4) { FactoryBot.create(:task_4, user: user) }
   let!(:task_5) { FactoryBot.create(:task_5, user: user_b) }
 
-  # labels
+  # labels userが作ったラベル
   let!(:label) { FactoryBot.create(:label, user: user) }
   let!(:second_label) { FactoryBot.create(:second_label, user: user) }
   let!(:third_label) { FactoryBot.create(:third_label, user: user) }
   let!(:fourth_label) { FactoryBot.create(:fourth_label, user: user) }
   let!(:fifth_label) { FactoryBot.create(:fifth_label, user: user) }
 
-  # labellings
+  # labellings userがチェックしたラベル
   let!(:labelling) { FactoryBot.create(:labelling, label: label, task: task) }
   let!(:second_labelling) { FactoryBot.create(:labelling, label: second_label, task: task_3) }
   let!(:third_labelling) { FactoryBot.create(:labelling, label: third_label, task: task_3) }
@@ -49,6 +49,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         find("#task_label_ids_3").click
         find("#task_label_ids_4").click
         click_on "登録する"
+
         expect(page).to have_content '登録しました'
         expect(page).to have_content 'third_label'
         expect(page).to have_content 'fourth_label'
@@ -69,7 +70,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しく作成されたタスクが一番上に表示される' do
         task_list = all('.task_body')
-        expect(task_list[0]).to have_content 'タスクネーム1'
+        expect(task_list[0]).to have_content 'タスクネーム4'
       end
     end
 
@@ -91,7 +92,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_on "優先順位"
         sleep 0.5
         task_list = all('.task_body')
-        #binding.irb
         expect(task_list[0]).to have_content '高'
         expect(task_list[1]).to have_content '中'
         expect(task_list[2]).to have_content '低'
@@ -105,7 +105,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       context '任意のタスク詳細画面に遷移した場合' do
         it '該当タスクの内容が表示される' do
           visit tasks_path(user)
-          all('tbody td')[6].click_on '詳細'
+          all('tbody td')[7].click_on '詳細'
           expect(page).to have_content 'テストタスクネーム4'
         end
       end
@@ -144,9 +144,38 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe 'ラベル作成機能' do
     let(:login_user) { user }
+    before do
+      visit tasks_path(user)
+    end
 
-    context '' do
-
+    context 'ラベルを新規作成した場合' do
+      it "作成したラベルが表示される" do
+        click_on 'ラベル作成'
+        fill_in 'ラベル名', with: '新ラベル'
+        click_on '作成'
+        expect(page).to have_content '新ラベル'
+      end
+    end
+    context '任意のラベルをチェックした場合' do
+      it "一覧画面に任意のラベルが表示される、または削除される" do
+        all('tbody td')[8].click_on '編集'
+        find("#task_label_ids_1").click
+        find("#task_label_ids_4").click
+        click_on '更新する'
+        task_list = all('.task_body')
+        expect(task_list[0]).to have_content 'label'
+        expect(task_list[0]).to have_content 'fifth_label'
+        expect(task_list[0]).to_not have_content 'fourth_label'
+      end
+    end
+    context 'ラベルを検索した場合' do
+      it 'ラベルが絞り込まれる' do
+        select 'label', from: 'label_id'
+        click_on '検索'
+        task_list = all('.task_body')
+        expect(task_list[0]).to have_content 'タスクネーム1'
+        # expect(page).to have_content 'タスクネーム1'
+      end
     end
 
   end

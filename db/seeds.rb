@@ -7,13 +7,13 @@ User.create!(
   password_confirmation: 'aa',
 )
 
-# User.create!(
-#   name: 'A',
-#   email: 'aa@aa',
-#   admin: false,
-#   password: 'aa',
-#   password_confirmation: 'aa',
-# )
+User.create!(
+  name: 'A',
+  email: 'aa@aa',
+  admin: false,
+  password: 'aa',
+  password_confirmation: 'aa',
+)
 
 User.create!(
   name: 'B',
@@ -38,3 +38,8 @@ User.create!(
     )
   end
 end
+
+Label.create!(
+  user_id: user.id,
+  name: 'ラベル99'
+)

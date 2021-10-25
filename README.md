@@ -57,4 +57,4 @@ $ heroku run rails db:migrate
 ```
 
 アプリにアクセス
-`https://アプリ名.herokuapp.com/`
+https://serene-atoll-43446.herokuapp.com/
