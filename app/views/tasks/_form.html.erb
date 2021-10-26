@@ -30,15 +30,15 @@
     <%= form.label :priority %>
     <%= form.select :priority, Task.priorities.keys.map {|k| [I18n.t("enums.task.priority.#{k}"), k]}, {}, class: "form-control" %>
   </div>
-
-  <%# <% Label.all.each do |label| %> %>
+  
+  <%= form.label :label %>
   <% @labels.each do |label| %>
     <% if action_name == 'new' || action_name == 'create' %>
       <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id], "" %>
-      <%= label.name %>
+      <label class='badge badge-secondary'><%= label.name %></label>
     <% elsif action_name == 'edit' || action_name == 'update' %>
       <%= form.check_box :label_ids, { multiple: true, checked: @task.label_ids.include?(label.id), disabled: label[:disabled], include_hidden: false}, label[:id], "" %>
-      <%= label.name %>
+      <label class='badge badge-secondary'><%= label.name %></label>
     <% end %>
   <% end %>
 

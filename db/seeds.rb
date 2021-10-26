@@ -39,7 +39,13 @@ User.create!(
   end
 end
 
-Label.create!(
-  user_id: user.id,
-  name: 'ラベル99'
-)
+# Label.create!(
+#   user_id: User(1),
+#   name: 'ラベル99'
+# )
+
+User.all.each do |user|
+  user.labels.create!(
+    name: 'ラベル99',
+  )
+end
