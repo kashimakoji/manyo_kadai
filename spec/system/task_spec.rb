@@ -55,6 +55,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'fourth_label'
       end
     end
+    context '空白で新規作成した場合' do
+      let(:login_user) { user }
+      it 'エラー画像が表示される' do
+        visit new_task_path
+        click_on "登録する"
+        expect(page).to have_selector("img[src='/500.png']")
+        # expect(page).to have_selector("img[src$='画像名.jpg']")
+      end
+    end
   end
 
   describe '一覧表示機能' do
