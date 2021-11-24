@@ -1,3 +1,5 @@
+require 'FactoryBot'
+
 User.create!(
   # id: '1',
   name: 'admin',
