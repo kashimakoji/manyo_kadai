@@ -4,11 +4,10 @@ class Admin::UsersController < ApplicationController
 
   def index
     redirect_to tasks_path, notice: "一般ユーザーは管理画面に入れません" unless current_user.admin?
-    # @users = User.all
+    # @users = User.includes(:tasks).all
     @users = User.includes(:tasks).all
     # @users = User.preload(:tasks)
     # @users = User.eager_load(:tasks)
-    # binding.irb
   end
 
   def show
@@ -47,8 +46,6 @@ class Admin::UsersController < ApplicationController
       # render :index
     end
   end
-
-
 
   private
   def user_params

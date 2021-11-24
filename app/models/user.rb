@@ -6,6 +6,9 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 1 }
 
   has_many :tasks, dependent: :destroy
+  has_many :labels, dependent: :destroy
+
+  # scope :desc_sort, -> { order(created_at: :desc) }  #ApplicationRecordへ移動
 
   before_destroy :destroy_stopped
   # after_update :update_stopped
@@ -21,6 +24,10 @@ class User < ApplicationRecord
     errors.add :admin
     # errors[:base] << '管理者は１人以上必要ですベンダー'
     throw(:abort) if User.where(admin:true).count == 1 && User.where(admin:true).first.id == self.id && self.admin == false
+
+    # if User.where(admin: true).count == 1 && self.admin == false #他人のコード
+    #     errors.add(:admin,"は、最低でも１人は必要です。")
+    #     throw(:abort)
 
     # if User.where(admin: true).length == 0
     #   raise ActiveRecord::Rollback

@@ -1,7 +1,7 @@
 |Label            |Labeling    |Task            |User                  |
 |  ----           |  ----      |  ----          |  ----                |
-|label_name:string|task_id(FK) |user_id(FK)     |admin:boolean         |
-|                 |label_id(FK)|task_name:string|user:string           |
+|user_id(FK) |task_id(FK) |user_id(FK)     |admin:boolean         |
+|label_name:string   |label_id(FK)|task_name:string|user:string           |
 |                 |            |content:text    |email:string          |
 |                 |            |end_time:datetime        |passwork_digest:string|
 |			|			|	created_at:datetime	|			|
@@ -57,4 +57,4 @@ $ heroku run rails db:migrate
 ```
 
 アプリにアクセス
-`https://アプリ名.herokuapp.com/`
+https://serene-atoll-43446.herokuapp.com/

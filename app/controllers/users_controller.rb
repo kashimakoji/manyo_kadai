@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: %i[ new create ]
-  before_action :set_user, only: %i[ show ]
+  # before_action :set_user, only: %i[ show ]
 
   def new
     redirect_to tasks_path if current_user.present?
@@ -19,9 +19,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    # @user = User.find(params[:id])
-    redirect_to tasks_path if current_user != @user
-    @tasks = @user.tasks.page(params[:page]).per(10)
+    redirect_to tasks_path unless current_user
+    admins = User.where(admin: true)
+    @labels = admins.map(&:labels)
+    @labels << current_user.try(:labels) if current_user.admin != true
+    @labels = @labels.flatten
+    @tasks = current_user.tasks.includes(:labels).desc_sort.page(params[:page]).per(10)
+    # @user = User.find(params[:id]) #カレントユーザーの情報を取りたいので上記に変更
   end
 
   private
@@ -29,8 +33,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def set_user
-    @user = User.find(params[:id])
-  end
+  # def set_user
+  #   @user = User.find(params[:id])
+  # end
 
 end

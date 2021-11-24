@@ -1,3 +1,5 @@
+require 'FactoryBot'
+
 User.create!(
   # id: '1',
   name: 'admin',
@@ -7,13 +9,13 @@ User.create!(
   password_confirmation: 'aa',
 )
 
-# User.create!(
-#   name: 'A',
-#   email: 'aa@aa',
-#   admin: false,
-#   password: 'aa',
-#   password_confirmation: 'aa',
-# )
+User.create!(
+  name: 'A',
+  email: 'aa@aa',
+  admin: false,
+  password: 'aa',
+  password_confirmation: 'aa',
+)
 
 User.create!(
   name: 'B',
@@ -37,4 +39,15 @@ User.create!(
       end_time: end_time,
     )
   end
+end
+
+# Label.create!(
+#   user_id: User(1),
+#   name: 'ラベル99'
+# )
+
+User.all.each do |user|
+  user.labels.create!(
+    name: 'ラベル99',
+  )
 end

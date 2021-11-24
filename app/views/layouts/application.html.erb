@@ -21,9 +21,10 @@
 
     <% if logged_in? %>
       <%= link_to "ユーザー一覧", admin_users_path if current_user.admin? %>
+      <%= link_to "Adminラベル作成", new_admin_label_path if current_user.admin? %>
       <%= link_to "タスク一覧", tasks_path %>
-      <%= link_to "プロフィール", user_path(current_user.id) %>
-      <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+      <%= link_to "プロフィール", user_path(current_user) %>
+      <%= link_to "ログアウト", session_path(current_user), method: :delete %>
     <% else %>
       <%= link_to "新規作成", new_user_path %>
       <%= link_to "ログイン", new_session_path %>

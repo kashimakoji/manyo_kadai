@@ -1,0 +1,10 @@
+<h1>タスク名編集</h1>
+
+<% @labels.each do |label| %>
+<table>
+  <tr>
+    <td><%= label.name %></td>
+    <td><%= link_to "編集", admin_label_path(label.id), class: 'btn btn-primary' </td>
+    <td><%= link_to "削除", admin_label_path(label.id), method: :delete, class: 'btn btn-danger', data: { confirm: "削除して良いですか？" } %></td>
+  </tr>
+</table>

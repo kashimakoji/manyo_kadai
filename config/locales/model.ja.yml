@@ -16,6 +16,7 @@ ja:
         working: 着手
         completed: 完了
         priority: 優先順位
+        label: ラベル：
       user:
         title: タイトル
         name: 名前
